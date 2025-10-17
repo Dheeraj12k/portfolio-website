@@ -16,6 +16,11 @@ const footerMainLinks = [
     type: "external",
     href: LINKS.YouTube,
   },
+  {
+    title: "Website",
+    type: "external",
+    href: LINKS.Website,
+  }
 ];
 
 const footerSecondaryLinks = [
