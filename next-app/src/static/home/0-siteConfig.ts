@@ -13,7 +13,7 @@ export const LINKS = {
     "Github": "https://github.com/Dheeraj12k",
     "LinkedIn": "https://www.linkedin.com/in/kdheeraj98/",
     "YouTube": "https://www.youtube.com/",
-    "Website": "https://vercel.com/",
+    "Website": "https://dheerajk-portfolio.vercel.app/",
 }
 
 export const SITE_CONFIG = {

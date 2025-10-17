@@ -89,13 +89,13 @@ npx prisma studio
 
 ## Customization
 Update the portfolio copy under `next-app/src/static/home/`:
-- `0-siteConfig.ts` – name, tagline, social links, keywords
-- `3-experiences.ts` – professional timeline entries
-- `5-portfolioProjects.ts` – project cards (placeholder project included)
-- `6-testimonials.ts` – testimonials
-- `7-about.ts` – hobbies, map, toolkit cards
-- `8-bookDetails.ts` – currently shows a "reading list coming soon" placeholder
-- `9-toolBoxDetails.ts` – toolbox categories and icons
+- `0-siteConfig.ts` ï¿½ name, tagline, social links, keywords
+- `3-experiences.ts` ï¿½ professional timeline entries
+- `5-portfolioProjects.ts` ï¿½ project cards (placeholder project included)
+- `6-testimonials.ts` ï¿½ testimonials
+- `7-about.ts` ï¿½ hobbies, map, toolkit cards
+- `8-bookDetails.ts` ï¿½ currently shows a "reading list coming soon" placeholder
+- `9-toolBoxDetails.ts` ï¿½ toolbox categories and icons
 
 Swap hero imagery, favicon, and resume under `next-app/public/` and `next-app/src/assets/images/` as needed.
 
@@ -125,8 +125,10 @@ npm run start
 - Add analytics (PostHog, Plausible, or Vercel Web Analytics) once traffic grows
 
 ## License
-MIT License – you are free to reuse components; please provide attribution if it helps you.
+MIT License ï¿½ you are free to reuse components; please provide attribution if it helps you.
 
 ## Contact
-Questions, collaboration ideas, or feedback? Reach out via the contact form or email `dheeraj1208.k@gmail.com`.
+Questions, collaboration ideas, or feedback? Reach out via the contact form or email 
+Email: `dheeraj1208.k@gmail.com`.
+Website: `https://dheerajk-portfolio.vercel.app/`
 
