@@ -1,4 +1,4 @@
-name: Deploy to Production Server
+name: Deploy to Vercel
 
 on:
   push:
@@ -6,35 +6,40 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: Deploy code
-        uses: appleboy/ssh-action@0e19dd962da42eb2f2b775d6e133dc9dfd424aa6
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SERVER_PORT }}
-          script: |
-            set -e  
-            
-            echo "Step 1: Navigating to project directory"
-            cd ~/portfolio-guided
-            
-            echo "Step 2: Pulling latest changes"
-            git pull origin main
-            
-            echo "Step 3: Running deployment script"
-            sudo /usr/local/sbin/deploy-portfolio.sh
-            DEPLOY_EXIT_CODE=$?
 
-            if [ $DEPLOY_EXIT_CODE -eq 0 ]; then
-              echo "Deployment completed successfully"
-            else
-              echo "Deployment failed with exit code $DEPLOY_EXIT_CODE"
-              exit $DEPLOY_EXIT_CODE
-            fi
-            
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: next-app/package-lock.json
+
+      - name: Install dependencies
+        working-directory: next-app
+        run: npm install
+
+      - name: Pull Vercel environment info
+        working-directory: next-app
+        run: npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build with Vercel
+        working-directory: next-app
+        run: npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel
+        working-directory: next-app
+        run: npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}

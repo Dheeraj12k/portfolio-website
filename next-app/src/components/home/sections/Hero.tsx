@@ -94,7 +94,7 @@ export const HeroSection = () => {
             rel="noopener noreferrer"
           >
             <span>👋</span>
-            <span className="font-semibold">Let's Connect</span>
+            <span className="font-semibold">Connect on LinkedIn</span>
           </a>
         </div>
       </div>

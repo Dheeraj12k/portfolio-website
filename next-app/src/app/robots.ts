@@ -1,4 +1,4 @@
-import { baseUrl } from "@/lib/utilities/general-utils";
+import { siteUrl } from "@/lib/utilities/general-utils";
 
 // robots.txt
 export default function robots() {
@@ -8,6 +8,6 @@ export default function robots() {
         userAgent: "*",
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

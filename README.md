@@ -100,6 +100,7 @@ Update the portfolio copy under `next-app/src/static/home/`:
 Swap hero imagery, favicon, and resume under `next-app/public/` and `next-app/src/assets/images/` as needed.
 
 ## Deployment Options
+- **GitHub Actions (Optional)**: Configure repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` to enable the included `.github/workflows/deploy.yml` pipeline.
 - **Vercel (Recommended)**: Serverless deployment with built-in Next.js support. Add environment variables, push `main`, and set `LINKS.Website` once the final domain is chosen.
 - **Custom Hosting (Optional)**: The `next.config.mjs` output is `standalone`; you can containerize the `next-app` build or run `npm run build && npm run start` on your own VM.
 
