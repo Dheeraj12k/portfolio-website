@@ -12,20 +12,20 @@ import DeltaLakeIcon from "@/assets/icons/delta-lake.svg";
 
 const hobbyList = [
   {
-    title: " Story Writing",
-    emoji: "✍️",
+    title: "Reading",
+    emoji: "📚",
     left: "15%",
     top: "5%",
   },
   {
-    title: "Meditating",
-    emoji: "🧘",
+    title: "Fitness",
+    emoji: "🏋️",
     left: "50%",
     top: "5%",
   },
   {
-    title: "Walking",
-    emoji: "🥾",
+    title: "Dancing",
+    emoji: "💃",
     left: "35%",
     top: "40%",
   },
@@ -36,21 +36,21 @@ const hobbyList = [
     top: "35%",
   },
   {
-    title: "Dancing",
-    emoji: "💃",
+    title: "Walking",
+    emoji: "🥾",
     left: "70%",
     top: "45%",
   },
 
   {
-    title: "Fitness",
-    emoji: "🏋️",
+    title: "Meditating",
+    emoji: "🧘",
     left: "15%",
     top: "65%",
   },
   {
-    title: "Reading",
-    emoji: "📚",
+    title: " Story Writing",
+    emoji: "✍️",
     left: "45%",
     top: "70%",
   },

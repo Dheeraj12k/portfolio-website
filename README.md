@@ -1,26 +1,26 @@
 # Dheeraj K Portfolio
 
-Personal site for sharing my data engineering profile, current projects, and a contact channel backed by Neon Postgres. The UI is built with Next.js (App Router) and Tailwind CSS.
+Personal site for sharing my data engineering profile, current projects, and a contact channel backed by Neon Postgres. Built with Next.js (App Router) and Tailwind CSS.
 
 ## Portfolio Preview
 
 | Hero | Projects | Contact |
-| --- | --- | --- |
+|------|----------|---------|
 | ![Hero](pictures/portfolio-pic-1.png) | ![Projects](pictures/portfolio-pic-2.png) | ![Contact](pictures/portfolio-pic-3.png) |
 
 ## Features
 - Dynamic homepage sections (hero, experience timeline, testimonials, toolbox)
 - Contact modal that persists inquiries to Neon PostgreSQL via Prisma
 - Privacy and Terms pages tailored for this portfolio
-- Responsive, dark-themed layout with custom hero animation effects
+- Responsive dark theme with custom hero orbit animation
 - Blog/newsletter hooks stubbed out until content is ready (easy to re-enable later)
 
 ## Architecture
 - **Frontend**: Next.js 14, React 18, TypeScript
-- **Styling**: Tailwind CSS + bespoke utilities (hero orbit animation, badges)
-- **Data Layer**: Prisma Client talking to Neon PostgreSQL (contact data only)
-- **Hosting Target**: Vercel (serverless) with optional self-hosting for experimentation
-- **Assets**: Local SVG icon set, hero imagery under `src/assets`
+- **Styling**: Tailwind CSS with custom utilities
+- **Data layer**: Prisma Client -> Neon Postgres (contact messages only)
+- **Hosting**: Vercel (primary target) with standalone output for alternative hosting scenarios
+- **Assets**: Local SVG icon set and hero imagery under `src/assets`
 
 ## Getting Started
 ```bash
@@ -34,75 +34,84 @@ npx prisma generate
 # start development server
 npm run dev
 ```
-Your app will be available at http://localhost:3000.
+Visit http://localhost:3000 to view the site.
 
 ## Project Structure
 ```text
-next-app/
-  prisma/
-    migrations/               # Prisma migrations (ContactMessage table)
-    schema.prisma             # Prisma models (contacts only)
-  public/
-    icon.svg                  # Favicon (replace with your branding)
-    resume.pdf                # Resume served from /resume.pdf
-  src/
-    app/                      # App Router pages (home, privacy, terms, 404, OG)
-    assets/                   # Images and SVG icons
-    components/               # Reusable React components (home sections, UI)
-    db/                       # Prisma client wrapper
-    lib/                      # Feature flags & utilities
-    static/home/              # Portfolio content (hero, projects, testimonials, etc.)
-pictures/                     # README preview images
-README.md                      # This documentation
+.
+|-- .github/
+|   `-- workflows/
+|       `-- deploy.yml
+|-- next-app/
+|   |-- prisma/
+|   |   |-- migrations/
+|   |   |   `-- 20251017014124_init/
+|   |   |       `-- migration.sql
+|   |   `-- schema.prisma
+|   |-- public/
+|   |   |-- icon.svg
+|   |   `-- resume.pdf
+|   |-- src/
+|   |   |-- app/
+|   |   |   |-- layout.tsx
+|   |   |   |-- page.tsx
+|   |   |   |-- og/route.tsx
+|   |   |   |-- privacy-policy/page.tsx
+|   |   |   `-- terms-of-services/page.tsx
+|   |   |-- assets/
+|   |   |-- components/
+|   |   |-- db/
+|   |   |-- lib/
+|   |   `-- static/
+|   |       |-- config/site.ts
+|   |       `-- home/
+|   |-- package.json
+|   `-- ...
+|-- pictures/
+|   |-- portfolio-pic-1.png
+|   |-- portfolio-pic-2.png
+|   `-- portfolio-pic-3.png
+`-- README.md
 ```
 
 ## Configuration
-Create `next-app/.env` based on the following template:
+Create `next-app/.env` with:
 ```env
 DATABASE_URL="postgresql://<neon-connection-string>"
 PRISMA_SCHEMA="public"
 NEXT_PUBLIC_API_URL="http://localhost:3000/api"
 NEXT_PUBLIC_SITE_URL="http://localhost:3000"
 ```
-These same variables must be added to your production environment (e.g., Vercel project settings).
+Mirror these variables in Vercel (Project > Settings > Environment Variables) using the production domain.
 
 ## Database Setup
-Apply the Prisma migration to ensure the contact table exists:
 ```bash
 cd next-app
 npx prisma migrate deploy
 ```
-You can verify the data using Prisma Studio:
-```bash
-npx prisma studio
-```
+Optional: inspect data with `npx prisma studio`.
 
-### Table Schema
-`ContactMessage` (schema: `public`)
-| Column    | Type        | Constraints              |
-|----------|-------------|--------------------------|
-| id        | SERIAL      | Primary key              |
-| name      | TEXT        | Not null                 |
-| email     | TEXT        | Not null                 |
-| message   | TEXT        | Not null                 |
-| createdAt | TIMESTAMP   | Default `now()`          |
+### Table Schema (ContactMessage)
+| Column    | Type      | Notes                 |
+|-----------|-----------|-----------------------|
+| id        | SERIAL    | Primary key           |
+| name      | TEXT      | Required              |
+| email     | TEXT      | Required              |
+| message   | TEXT      | Required              |
+| createdAt | TIMESTAMP | Defaults to `now()`   |
 
 ## Customization
-Update the portfolio copy under `next-app/src/static/home/`:
-- `0-siteConfig.ts` � name, tagline, social links, keywords
-- `3-experiences.ts` � professional timeline entries
-- `5-portfolioProjects.ts` � project cards (placeholder project included)
-- `6-testimonials.ts` � testimonials
-- `7-about.ts` � hobbies, map, toolkit cards
-- `8-bookDetails.ts` � currently shows a "reading list coming soon" placeholder
-- `9-toolBoxDetails.ts` � toolbox categories and icons
-
-Swap hero imagery, favicon, and resume under `next-app/public/` and `next-app/src/assets/images/` as needed.
+- `0-siteConfig.ts`: name, tagline, social links, keywords
+- `3-experiences.ts`: professional timeline entries
+- `5-portfolioProjects.ts`: featured project cards (placeholder included)
+- `6-testimonials.ts`, `7-about.ts`, `9-toolBoxDetails.ts`: testimonials, about copy, tool stacks
+- `8-bookDetails.ts`: currently shows a "Coming soon" reading list
+- Replace hero illustration, favicon, and resume in `public/` and `src/assets/`
 
 ## Deployment Options
-- **GitHub Actions (Optional)**: Configure repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` to enable the included `.github/workflows/deploy.yml` pipeline.
-- **Vercel (Recommended)**: Serverless deployment with built-in Next.js support. Add environment variables, push `main`, and set `LINKS.Website` once the final domain is chosen.
-- **Custom Hosting (Optional)**: The `next.config.mjs` output is `standalone`; you can containerize the `next-app` build or run `npm run build && npm run start` on your own VM.
+- **Vercel (recommended)**: Push to GitHub, configure environment variables, update `LINKS.Website` once the final domain is chosen.
+- **GitHub Actions**: `.github/workflows/deploy.yml` deploys via Vercel if repository secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` are set.
+- **Self-hosting**: `next.config.mjs` outputs a standalone build (`npm run build && npm run start`).
 
 ## Deployment Commands
 ```bash
@@ -118,17 +127,14 @@ npm run start
 *(Use `npm` or `pnpm` equivalents if you prefer those package managers.)*
 
 ## Future Roadmap
-- Add a lightweight Docker setup for local containerized development (Next.js + Neon)
-- Replace `comingSoon.png` once the AI Web App Builder demo is live
-- Publish initial blog posts and re-enable newsletter, RSS, and view tracking
-- Hook contact submissions into email or Slack notifications
-- Add analytics (PostHog, Plausible, or Vercel Web Analytics) once traffic grows
+- Replace `comingSoon.png` once the AI builder demo is live
+- Publish initial blog posts and re-enable newsletter/RSS
+- Wire contact submissions into email or Slack notifications
+- Add a lightweight Docker setup (Next.js + Neon)
+- Integrate analytics (Plausible, PostHog, or Vercel Analytics)
 
 ## License
-MIT License � you are free to reuse components; please provide attribution if it helps you.
+MIT License - you are free to reuse components; please provide attribution if it helps you.
 
 ## Contact
-Questions, collaboration ideas, or feedback? Reach out via the contact form or email 
-Email: `dheeraj1208.k@gmail.com`.
-Website: `https://dheerajk-portfolio.vercel.app/`
-
+Questions or collaboration ideas? Use the contact form or email `dheeraj1208.k@gmail.com`.
